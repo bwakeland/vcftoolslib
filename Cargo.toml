@@ -1,0 +1,13 @@
+[package]
+name = "vcftoolslib"
+version = "0.1.0"
+authors = ["benjamin.wakeland <benjamin.wakeland@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "vcftools"
+crate-type = ["cdylib"]
+
+[dependencies.pyo3]
+version = "0.8.2"
+features = ["extension-module"]
