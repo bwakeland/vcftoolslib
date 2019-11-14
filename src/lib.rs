@@ -4,11 +4,19 @@ use std::collections::HashMap;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
+#[pyclass]
 struct Header {
     header_dict: HashMap<String, String>,
     Samples: u32,
 }
 
+#[pymethods]
+impl Header {
+    #[getter]
+    fn get_header_dict(&self) -> PyResult<HashMap<String, String>> {
+        Ok(self.header_dict.clone())
+    }
+}
 
 fn parse_vcf(file_name: String) -> HashMap<String, String> {
     let mut file = File::open(file_name).unwrap();
@@ -75,6 +83,7 @@ fn parse_vcf_to_header(file_name: String) -> Header {
 fn read_vcf_file(file_name: String) -> PyResult<HashMap<String, String>> {
     Ok(parse_vcf(file_name))
 }
+
 #[pyfunction]
 fn return_object(file_name: String) -> Header {
     parse_vcf_to_header(file_name)
